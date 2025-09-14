@@ -245,7 +245,7 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <span className="text-accent">&gt;</span> Cybersecurity Engineer
+          <span className="text-accent">&gt;</span> Computer Engineer
           <span className="animate-pulse">_</span>
         </motion.div>
         
