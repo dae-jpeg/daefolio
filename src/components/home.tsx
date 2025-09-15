@@ -17,31 +17,36 @@ const Home = () => {
       { name: "TypeScript", level: 90, icon: "🔷" },
       { name: "Python", level: 85, icon: "🐍" },
       { name: "C++", level: 80, icon: "⚙️" },
-      { name: "Rust", level: 75, icon: "🦀" },
-      { name: "Go", level: 70, icon: "🔵" },
+      // { name: "Rust", level: 75, icon: "🦀" },
+      // { name: "Go", level: 70, icon: "🔵" },
     ],
     frameworks: [
       { name: "React", level: 95, icon: "⚛️" },
       { name: "Next.js", level: 90, icon: "▲" },
       { name: "Node.js", level: 85, icon: "💚" },
-      { name: "Express", level: 80, icon: "🚀" },
-      { name: "FastAPI", level: 75, icon: "⚡" },
-      { name: "TensorFlow", level: 70, icon: "🧠" },
+      { name: "PostgreSQL", level: 80, icon: "🚀" },
+      { name: "Laravel", level: 80, icon: "🎯" },
+      // { name: "TensorFlow", level: 70, icon: "🧠" },
     ],
     tools: [
-      { name: "Docker", level: 90, icon: "🐳" },
-      { name: "Kubernetes", level: 85, icon: "☸️" },
-      { name: "AWS", level: 80, icon: "☁️" },
+      // { name: "Docker", level: 90, icon: "🐳" },
+      // { name: "Kubernetes", level: 85, icon: "☸️" },
+      // { name: "AWS", level: 80, icon: "☁️" },
       { name: "Git", level: 95, icon: "📝" },
-      { name: "Linux", level: 85, icon: "🐧" },
+      // { name: "Linux", level: 85, icon: "🐧" },
       { name: "Figma", level: 75, icon: "🎨" },
+      { name: "Laragon", level: 90, icon: "🖥️" },
+    ],
+    databases: [
+      { name: "PostgreSQL", level: 80, icon: "🐘" },
+      { name: "MySQL", level: 85, icon: "🛢️" },
     ],
     hardware: [
       { name: "Arduino", level: 90, icon: "🔌" },
-      { name: "Raspberry Pi", level: 85, icon: "🍓" },
+      // { name: "Raspberry Pi", level: 85, icon: "🍓" },
       { name: "ESP32", level: 80, icon: "📡" },
       { name: "PCB Design", level: 70, icon: "🔧" },
-      { name: "3D Printing", level: 75, icon: "🖨️" },
+      // { name: "3D Printing", level: 75, icon: "🖨️" },
       { name: "Soldering", level: 85, icon: "🔥" },
     ],
   };
@@ -89,16 +94,15 @@ const Home = () => {
   // Sample data for experience section
   const experiences = [
     {
-      title: "Senior Full Stack Engineer",
-      company: "CyberTech Innovations",
-      location: "San Francisco, CA",
-      period: "January 2023 - Present",
-      description: "Leading development of next-generation cybersecurity platforms using React, Node.js, and machine learning. Architected microservices handling 10M+ daily requests. Implemented real-time threat detection systems with 99.9% accuracy.",
-      technologies: ["React", "TypeScript", "Node.js", "Python", "TensorFlow", "Kubernetes", "AWS"],
+      title: "Programming Intern",
+      company: "Philippine Air Force",
+      location: "Colonel Jesus Villamor Air Base, Pasay City",
+      period: "April 2025 - June 2025",
+      description: "",
+      technologies: ["Django", "Python", "PostgreSQL", "React", "TypeScript", "HTML", "CSS", "JavaScript"],
       achievements: [
-        "Reduced system response time by 60%",
-        "Led team of 8 engineers",
-        "Implemented zero-downtime deployments"
+        "Developed a web-based inventory management system for the Philippine Air Force",
+        "Successfully implemented and gained hands-on experience with Django and PostgreSQL throughout various projects."
       ]
     },
     {
@@ -132,64 +136,53 @@ const Home = () => {
   // Sample data for education section
   const education = [
     {
-      degree: "Master of Science in Cybersecurity",
-      institution: "MIT",
-      location: "Cambridge, MA",
-      period: "2017 - 2019",
-      description: 'Specialized in AI-driven security systems and quantum cryptography. Thesis: "Neural Networks for Real-time Malware Detection in IoT Environments".',
+      degree: "Bachelor of Science in Computer Engineering",
+      institution: "PHINMA University of Pangasinan",
+      location: "Dagupan City, Pangasinan, Philippines",
+      period: "2021 - 2025",
+      description: 'Computer Engineering student specializing in embedded systems and microcontrollers such as Arduino and ESP32, with additional knowledge in software and web development.',
       achievements: [
-        "GPA: 3.95/4.0",
-        "Research Assistant - AI Security Lab",
-        "Teaching Assistant - Advanced Cryptography",
-        "Winner - MIT Cybersecurity Challenge 2019"
+        "Regional Convention – Region 1 (2022) - Quiz Bowl Competition, 2nd Runner Up",
+        "Member, Institute of Computer Engineers of the Philippines, ICpEP.se",
+        "Capstone Project/Thesis – CheckInGo: A Smart Hotel Management System"
       ],
-      coursework: ["Advanced Cryptography", "Machine Learning Security", "Quantum Computing", "Network Security"]
+      coursework: ["Embedded Systems Design", "Computer Networks & Security", "Digital Logic & Microprocessors", "Computer Architecture & Organization"]
     },
     {
-      degree: "Bachelor of Science in Computer Engineering",
-      institution: "Stanford University",
-      location: "Stanford, CA",
-      period: "2013 - 2017",
-      description: 'Focus on embedded systems and computer architecture. Senior project: "Quantum-Resistant Cryptographic Hardware Accelerator".',
+      degree: "Science, Technology, Engineering and Mathematics",
+      institution: "PHINMA University of Pangasinan",
+      location: "Dagupan City, Pangasinan, Philippines",
+      period: "2019 -2021",
+      description: 'Focused on science, technology, engineering, and mathematics with emphasis on problem-solving, research, and technical skills as preparation for engineering studies.',
       achievements: [
-        "Summa Cum Laude",
-        "Phi Beta Kappa Honor Society",
-        "Dean's List (8 semesters)",
-        "Outstanding Senior Project Award"
+        "With Honors",
       ],
-      coursework: ["Digital Systems Design", "Computer Architecture", "Embedded Systems", "Signal Processing"]
+      coursework: ["Pre-Calculus & Calculus", "General Physics", "General Chemistry", "Computer Programming", "Statistics & Probability", "Research & Design Projects"]
     },
   ];
 
   // Sample achievements data
   const achievements = [
     {
-      title: "DEF CON CTF Winner",
-      organization: "DEF CON 31",
-      date: "August 2023",
-      description: "Led team to victory in world's most prestigious cybersecurity competition",
-      icon: "🏆"
+      title: "ICpEP.SE Regional Convention – Region 1 (Quiz Bowl, 2nd Runner Up)",
+      organization: "Institute of Computer Engineers of the Philippines, ICpEP.se",
+      date: "December 2022",
+      description: "Participated in the ICpEP.SE Regional Convention themed 'Neural Glocalization on Digital Trends' held at Urdaneta City University Gymnasium.",
+      icon: "🥈"
     },
     {
-      title: "IEEE Young Professional Award",
-      organization: "IEEE Computer Society",
-      date: "June 2023",
-      description: "Recognized for outstanding contributions to cybersecurity research",
-      icon: "🎖️"
+      title: "Senior High School – With Honors",
+      organization: "PHINMA University of Pangasinan",
+      date: "2019–2021",
+      description: "Graduated with honors under the STEM strand.",
+      icon: "🎓"
     },
     {
-      title: "Black Hat Arsenal Presenter",
-      organization: "Black Hat USA",
-      date: "August 2022",
-      description: "Presented novel IoT security testing framework to industry experts",
-      icon: "🛡️"
-    },
-    {
-      title: "MIT Innovation Award",
-      organization: "MIT Technology Review",
-      date: "March 2019",
-      description: "Recognized as one of 35 Innovators Under 35 for cybersecurity research",
-      icon: "💡"
+      title: "Junior High School – With Honors",
+      organization: "Daniel Maramba National High School",
+      date: "2015–2019",
+      description: "Consistently recognized as an honor student throughout junior high.",
+      icon: "📘"
     }
   ];
 
@@ -255,7 +248,7 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.8 }}
         >
-          Penetrating digital fortresses, architecting quantum-resistant systems, and building the future of cybersecurity with AI-powered solutions.
+          A Computer Engineering student aspiring to become a cybersecurity specialist, passionate about securing networks, learning ethical hacking, and exploring AI-driven defenses for the future of digital security.
         </motion.p>
         
         <motion.div 
