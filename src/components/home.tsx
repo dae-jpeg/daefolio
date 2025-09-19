@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ContentSection from "./ContentSection";
 import ProjectsSection from "./ProjectsSection";
@@ -7,9 +7,63 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Badge } from "./ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, GraduationCap, Code, Cpu, Zap } from "lucide-react";
+import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, GraduationCap, Code, Cpu, Zap, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 
 const Home = () => {
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setSubmitMessage(result.message);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage(result.message);
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage('Failed to send message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Sample data for skills section
   const skills = {
     languages: [
@@ -105,32 +159,32 @@ const Home = () => {
         "Successfully implemented and gained hands-on experience with Django and PostgreSQL throughout various projects."
       ]
     },
-    {
-      title: "Cybersecurity Research Engineer",
-      company: "Quantum Defense Labs",
-      location: "Boston, MA",
-      period: "March 2021 - December 2022",
-      description: "Developed AI-powered threat detection algorithms and blockchain-based security protocols. Created custom hardware solutions for secure communications. Published 3 research papers in top-tier security conferences.",
-      technologies: ["Python", "C++", "Blockchain", "Machine Learning", "Hardware Security"],
-      achievements: [
-        "Patent pending for quantum encryption method",
-        "Discovered 5 zero-day vulnerabilities",
-        "Presented at DEF CON 2022"
-      ]
-    },
-    {
-      title: "IoT Security Specialist",
-      company: "NeuralLink Systems",
-      location: "Austin, TX",
-      period: "June 2019 - February 2021",
-      description: "Designed secure IoT architectures for smart city infrastructure. Developed custom firmware for edge devices with advanced encryption. Led penetration testing for critical infrastructure systems.",
-      technologies: ["C", "Rust", "ESP32", "LoRaWAN", "Cryptography"],
-      achievements: [
-        "Secured 50,000+ IoT devices",
-        "Reduced security incidents by 85%",
-        "Created industry-standard security protocols"
-      ]
-    },
+    // {
+    //   title: "Cybersecurity Research Engineer",
+    //   company: "Quantum Defense Labs",
+    //   location: "Boston, MA",
+    //   period: "March 2021 - December 2022",
+    //   description: "Developed AI-powered threat detection algorithms and blockchain-based security protocols. Created custom hardware solutions for secure communications. Published 3 research papers in top-tier security conferences.",
+    //   technologies: ["Python", "C++", "Blockchain", "Machine Learning", "Hardware Security"],
+    //   achievements: [
+    //     "Patent pending for quantum encryption method",
+    //     "Discovered 5 zero-day vulnerabilities",
+    //     "Presented at DEF CON 2022"
+    //   ]
+    // },
+    // {
+    //   title: "IoT Security Specialist",
+    //   company: "NeuralLink Systems",
+    //   location: "Austin, TX",
+    //   period: "June 2019 - February 2021",
+    //   description: "Designed secure IoT architectures for smart city infrastructure. Developed custom firmware for edge devices with advanced encryption. Led penetration testing for critical infrastructure systems.",
+    //   technologies: ["C", "Rust", "ESP32", "LoRaWAN", "Cryptography"],
+    //   achievements: [
+    //     "Secured 50,000+ IoT devices",
+    //     "Reduced security incidents by 85%",
+    //     "Created industry-standard security protocols"
+    //   ]
+    // },
   ];
 
   // Sample data for education section
@@ -419,32 +473,94 @@ const Home = () => {
       </h2>
       <Card className="max-w-2xl mx-auto cyberpunk-border bg-card/30 backdrop-blur-sm">
         <CardContent className="p-8">
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Status Messages */}
+            {submitStatus === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center gap-2 text-green-400"
+              >
+                <CheckCircle className="h-5 w-5" />
+                <span>{submitMessage}</span>
+              </motion.div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 text-red-400"
+              >
+                <AlertCircle className="h-5 w-5" />
+                <span>{submitMessage}</span>
+              </motion.div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-secondary mb-2">Name</label>
-                <Input placeholder="Your name" className="cyberpunk-border bg-background/50" />
+                <Input 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Your name" 
+                  className="cyberpunk-border bg-background/50" 
+                  required
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-secondary mb-2">Email</label>
-                <Input type="email" placeholder="your@email.com" className="cyberpunk-border bg-background/50" />
+                <Input 
+                  name="email"
+                  type="email" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="your@email.com" 
+                  className="cyberpunk-border bg-background/50" 
+                  required
+                />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-secondary mb-2">Subject</label>
-              <Input placeholder="Project collaboration, security consultation, etc." className="cyberpunk-border bg-background/50" />
+              <Input 
+                name="subject"
+                value={formData.subject}
+                onChange={handleInputChange}
+                placeholder="Project collaboration, security consultation, etc." 
+                className="cyberpunk-border bg-background/50" 
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-secondary mb-2">Message</label>
               <Textarea 
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
                 placeholder="Tell me about your project or security challenge..." 
                 rows={5}
                 className="cyberpunk-border bg-background/50"
+                required
               />
             </div>
-            <Button className="w-full cyberpunk-glow bg-primary text-primary-foreground hover:bg-primary/90">
-              <Mail className="mr-2 h-4 w-4" />
-              Send Encrypted Message
+            <Button 
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full cyberpunk-glow bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Mail className="mr-2 h-4 w-4" />
+                  Send Encrypted Message
+                </>
+              )}
             </Button>
           </form>
         </CardContent>
