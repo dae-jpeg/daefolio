@@ -39,12 +39,13 @@ const ContentSection = ({
   };
 
   return (
-    <section className={`w-full max-w-6xl mx-auto py-16 px-4 ${className}`}>
-      <h2 className="text-3xl font-bold mb-12 text-center text-primary neon-text">
-        {title}
-      </h2>
+    <section className={`w-full max-w-6xl mx-auto py-8 sm:py-16 px-2 sm:px-4 ${className}`}>
+      {title && (
+        <h2 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6 text-center text-zinc-50 border-b border-zinc-800 pb-2">
+          {title}
+        </h2>
+      )}
       <div className="relative">
-        <div className="absolute inset-0 grid-bg opacity-10"></div>
         <div className="relative z-10">
           {renderContent()}
         </div>
@@ -61,9 +62,9 @@ const SkillsContent = ({ data = {} }: { data: any }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       {Object.entries(data).map(([category, skills]: [string, any]) => (
-        <Card key={category} className="cyberpunk-border bg-card/30 backdrop-blur-sm">
+        <Card key={category} className="border-border bg-card/50 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-secondary capitalize text-xl">
+            <CardTitle className="text-foreground capitalize text-xl">
               {category}
             </CardTitle>
           </CardHeader>
@@ -72,7 +73,7 @@ const SkillsContent = ({ data = {} }: { data: any }) => {
               {Array.isArray(skills) && skills.map((skill: any) => (
                 <div key={skill.name} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium flex items-center gap-2">
+                    <span className="text-sm font-medium flex items-center gap-2 text-foreground">
                       <span>{skill.icon}</span>
                       {skill.name}
                     </span>
@@ -80,7 +81,7 @@ const SkillsContent = ({ data = {} }: { data: any }) => {
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000"
+                      className="h-full bg-primary rounded-full transition-all duration-1000"
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>
@@ -96,55 +97,17 @@ const SkillsContent = ({ data = {} }: { data: any }) => {
 
 const CertificationsContent = ({ data = [] }: { data: any }) => {
   if (!Array.isArray(data) || data.length === 0) {
-    return <div className="text-center text-muted-foreground">No certifications available</div>;
+    return <div className="text-center text-zinc-500 text-xs sm:text-sm">No certifications available</div>;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="space-y-3 sm:space-y-4">
       {data.map((cert: any, index: number) => (
-        <Card key={index} className="cyberpunk-border bg-card/30 backdrop-blur-sm hover:bg-card/50 transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-16 h-16 rounded-lg overflow-hidden cyberpunk-border flex-shrink-0">
-                <img
-                  src={cert.badgeUrl}
-                  alt={cert.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-lg text-secondary mb-2">{cert.title}</h3>
-                <p className="text-primary text-sm mb-2 flex items-center gap-2">
-                  <Award className="w-4 h-4" />
-                  {cert.organization}
-                </p>
-                <p className="text-muted-foreground text-sm mb-3 flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  {cert.date}
-                </p>
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-xs border-primary/50 text-primary">
-                    {cert.level}
-                  </Badge>
-                  <Button variant="ghost" size="sm" asChild>
-                    <a
-                      href={cert.verifyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent hover:text-accent/80"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-1" />
-                      Verify
-                    </a>
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  ID: {cert.credentialId}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div key={index} className="border-l-2 border-zinc-700 pl-3 sm:pl-4">
+          <h3 className="text-xs sm:text-sm font-medium text-zinc-200 break-words">{cert.title}</h3>
+          <p className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 sm:mt-1 break-words">{cert.organization}</p>
+          <p className="text-[10px] sm:text-xs text-zinc-500 mt-0.5 sm:mt-1 break-words">{cert.date} • {cert.level}</p>
+        </div>
       ))}
     </div>
   );
@@ -152,63 +115,47 @@ const CertificationsContent = ({ data = [] }: { data: any }) => {
 
 const ExperienceContent = ({ data = [] }: { data: any }) => {
   if (!Array.isArray(data) || data.length === 0) {
-    return <div className="text-center text-muted-foreground">No experience data available</div>;
+    return <div className="text-center text-zinc-500 text-xs sm:text-sm">No experience data available</div>;
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6">
       {data.map((exp: any, index: number) => (
-        <Card key={index} className="cyberpunk-border bg-card/30 backdrop-blur-sm">
-          <CardContent className="p-8">
-            <div className="flex flex-col lg:flex-row gap-6">
-              <div className="flex-1">
-                <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-secondary mb-2">{exp.title}</h3>
-                    <p className="text-primary font-medium flex items-center gap-2 mb-1">
-                      <Briefcase className="w-4 h-4" />
-                      {exp.company}
-                    </p>
-                    <p className="text-muted-foreground text-sm flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      {exp.location}
-                    </p>
-                  </div>
-                  <Badge variant="outline" className="border-accent text-accent mt-2 sm:mt-0">
-                    {exp.period}
-                  </Badge>
-                </div>
-                
-                <p className="text-foreground/90 mb-4 leading-relaxed">{exp.description}</p>
-                
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-secondary mb-2">Technologies:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {Array.isArray(exp.technologies) && exp.technologies.map((tech: string) => (
-                      <Badge key={tech} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-                {exp.achievements && Array.isArray(exp.achievements) && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-secondary mb-2">Key Achievements:</h4>
-                    <ul className="space-y-1">
-                      {exp.achievements.map((achievement: string, i: number) => (
-                        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">▸</span>
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+        <div key={index} className="border-l-2 border-zinc-700 pl-3 sm:pl-5 pb-2">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 sm:mb-3">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm sm:text-base font-semibold text-zinc-50 mb-1 break-words">{exp.title}</h3>
+              <p className="text-xs sm:text-sm text-zinc-300 font-medium break-words">{exp.company}</p>
+              <p className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 break-words">{exp.location}</p>
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-xs sm:text-sm text-zinc-400 font-medium mt-1 sm:mt-0 flex-shrink-0">{exp.period}</p>
+          </div>
+          
+          {exp.description && (
+            <p className="text-xs sm:text-sm text-zinc-300 mb-2 sm:mb-3 leading-relaxed break-words">{exp.description}</p>
+          )}
+          
+          {exp.achievements && Array.isArray(exp.achievements) && (
+            <ul className="space-y-1 sm:space-y-1.5 mb-2 sm:mb-3">
+              {exp.achievements.map((achievement: string, i: number) => (
+                <li key={i} className="text-xs sm:text-sm text-zinc-300 flex items-start gap-1.5 sm:gap-2">
+                  <span className="text-zinc-500 mt-1.5 text-[10px] sm:text-xs flex-shrink-0">•</span>
+                  <span className="break-words">{achievement}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          
+          {exp.technologies && Array.isArray(exp.technologies) && (
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {exp.technologies.map((tech: string) => (
+                <Badge key={tech} variant="secondary" className="text-[10px] sm:text-xs bg-zinc-900 text-zinc-300 border-zinc-800 px-1.5 sm:px-2 py-0.5">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
       ))}
     </div>
   );
@@ -216,65 +163,47 @@ const ExperienceContent = ({ data = [] }: { data: any }) => {
 
 const EducationContent = ({ data = [] }: { data: any }) => {
   if (!Array.isArray(data) || data.length === 0) {
-    return <div className="text-center text-muted-foreground">No education data available</div>;
+    return <div className="text-center text-zinc-500 text-xs sm:text-sm">No education data available</div>;
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6">
       {data.map((edu: any, index: number) => (
-        <Card key={index} className="cyberpunk-border bg-card/30 backdrop-blur-sm">
-          <CardContent className="p-8">
-            <div className="flex flex-col lg:flex-row gap-6">
-              <div className="flex-1">
-                <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-secondary mb-2">{edu.degree}</h3>
-                    <p className="text-primary font-medium flex items-center gap-2 mb-1">
-                      <GraduationCap className="w-4 h-4" />
-                      {edu.institution}
-                    </p>
-                    <p className="text-muted-foreground text-sm flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      {edu.location}
-                    </p>
-                  </div>
-                  <Badge variant="outline" className="border-accent text-accent mt-2 sm:mt-0">
-                    {edu.period}
-                  </Badge>
-                </div>
-                
-                <p className="text-foreground/90 mb-4 leading-relaxed">{edu.description}</p>
-                
-                {edu.coursework && Array.isArray(edu.coursework) && (
-                  <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-secondary mb-2">Relevant Coursework:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {edu.coursework.map((course: string) => (
-                        <Badge key={course} variant="secondary" className="text-xs">
-                          {course}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {edu.achievements && Array.isArray(edu.achievements) && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-secondary mb-2">Achievements:</h4>
-                    <ul className="space-y-1">
-                      {edu.achievements.map((achievement: string, i: number) => (
-                        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">▸</span>
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+        <div key={index} className="border-l-2 border-zinc-700 pl-3 sm:pl-5 pb-2">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 sm:mb-3">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm sm:text-base font-semibold text-zinc-50 mb-1 break-words">{edu.degree}</h3>
+              <p className="text-xs sm:text-sm text-zinc-300 font-medium break-words">{edu.institution}</p>
+              <p className="text-[10px] sm:text-xs text-zinc-400 mt-0.5 break-words">{edu.location}</p>
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-xs sm:text-sm text-zinc-400 font-medium mt-1 sm:mt-0 flex-shrink-0">{edu.period}</p>
+          </div>
+          
+          {edu.description && (
+            <p className="text-xs sm:text-sm text-zinc-300 mb-2 sm:mb-3 leading-relaxed break-words">{edu.description}</p>
+          )}
+          
+          {edu.achievements && Array.isArray(edu.achievements) && (
+            <ul className="space-y-1 sm:space-y-1.5 mb-2 sm:mb-3">
+              {edu.achievements.map((achievement: string, i: number) => (
+                <li key={i} className="text-xs sm:text-sm text-zinc-300 flex items-start gap-1.5 sm:gap-2">
+                  <span className="text-zinc-500 mt-1.5 text-[10px] sm:text-xs flex-shrink-0">•</span>
+                  <span className="break-words">{achievement}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          
+          {edu.coursework && Array.isArray(edu.coursework) && (
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {edu.coursework.map((course: string) => (
+                <Badge key={course} variant="secondary" className="text-[10px] sm:text-xs bg-zinc-900 text-zinc-300 border-zinc-800 px-1.5 sm:px-2 py-0.5">
+                  {course}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
       ))}
     </div>
   );

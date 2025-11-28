@@ -67,74 +67,27 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   });
 
   return (
-    <section className="py-16">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-4 text-primary neon-text">
-          <Zap className="inline-block mr-3" />
-          Project Arsenal
-        </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto text-lg">
-          Cutting-edge cybersecurity solutions, AI-powered defense systems, and quantum-resistant architectures 
-          that push the boundaries of digital security.
-        </p>
-
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-4">
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search projects..."
-              className="pl-10 cyberpunk-border bg-background/50"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-
-          <Tabs
-            defaultValue="all"
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="w-full md:w-auto"
-          >
-            <TabsList className="w-full md:w-auto bg-card/50 border border-border/50">
-              {categories.map((category) => (
-                <TabsTrigger
-                  key={category}
-                  value={category}
-                  className="capitalize data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                >
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
+    <div className="space-y-4 sm:space-y-5 print:space-y-4">
+      {projects.map((project) => (
+        <div key={project.id} className="print:break-inside-avoid">
+          <h3 className="text-xs sm:text-sm font-semibold text-zinc-200 mb-1.5 sm:mb-2 break-words">{project.title}</h3>
+          <ul className="space-y-1 sm:space-y-1.5 mb-2">
+            <li className="text-[10px] sm:text-xs text-zinc-300 flex items-start gap-1.5 sm:gap-2">
+              <span className="text-zinc-500 mt-1.5 text-[10px] sm:text-xs flex-shrink-0">•</span>
+              <span className="break-words">{project.description}</span>
+            </li>
+            <li className="text-[10px] sm:text-xs text-zinc-300 flex items-start gap-1.5 sm:gap-2">
+              <span className="text-zinc-500 mt-1.5 text-[10px] sm:text-xs flex-shrink-0">•</span>
+              <span className="break-words">
+                <span className="font-medium">Tech Stack:</span> {project.tags.filter(tag => 
+                  !['PWA', 'QR Code', 'Hotel Management', 'Inventory Management', 'Multi-Tenant', 'Logistics'].includes(tag)
+                ).join(', ')}
+              </span>
+            </li>
+          </ul>
         </div>
-
-        {filteredProjects.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🔍</div>
-            <p className="text-muted-foreground text-lg">
-              No projects match your search criteria.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onViewDetails={() => setSelectedProject(project)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      <ProjectDetailsDialog
-        project={selectedProject}
-        open={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
-    </section>
+      ))}
+    </div>
   );
 };
 
@@ -157,7 +110,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col cyberpunk-border bg-card/30 backdrop-blur-sm hover:bg-card/50 transition-all duration-300 group">
+    <Card className="overflow-hidden h-full flex flex-col border-border bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-300 group">
       <div className="aspect-video overflow-hidden bg-muted relative">
         <img
           src={project.image}
@@ -177,7 +130,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start mb-2">
-          <CardTitle className="text-xl font-bold text-secondary group-hover:text-primary transition-colors">
+          <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
             {project.title}
           </CardTitle>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -193,7 +146,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <CardContent className="pb-3 flex-grow">
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.slice(0, 4).map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-xs bg-primary/20 text-primary border-primary/30">
+            <Badge key={tag} variant="secondary" className="text-xs">
               {tag}
             </Badge>
           ))}
@@ -205,7 +158,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
         
         {project.impact && (
-          <div className="text-xs text-accent font-medium">
+          <div className="text-xs text-primary font-medium">
             Impact: {project.impact}
           </div>
         )}
@@ -215,11 +168,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="flex gap-2 w-full">
           <Button 
             variant="outline" 
-            className="flex-1 cyberpunk-border hover:bg-primary/10" 
+            className="flex-1 hover:bg-primary/10" 
             onClick={onViewDetails}
           >
             <Brain className="w-4 h-4 mr-2" />
-            Analyze
+            View Details
           </Button>
           <div className="flex gap-1">
             {project.liveUrl && (
@@ -268,14 +221,14 @@ const ProjectDetailsDialog: React.FC<ProjectDetailsDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto cyberpunk-border bg-card/95 backdrop-blur-sm">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto border-border bg-card/95 backdrop-blur-sm">
         <DialogHeader>
-          <DialogTitle className="text-3xl font-bold text-secondary mb-2">
+          <DialogTitle className="text-3xl font-bold text-foreground mb-2">
             {project.title}
           </DialogTitle>
           <DialogDescription className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <Badge variant="outline" className="border-accent text-accent">
+              <Badge variant="outline" className="border-primary text-primary">
                 {project.year}
               </Badge>
               {project.status && (
@@ -286,7 +239,7 @@ const ProjectDetailsDialog: React.FC<ProjectDetailsDialogProps> = ({
             </div>
             <div className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs bg-primary/20 text-primary">
+                <Badge key={tag} variant="secondary" className="text-xs">
                   {tag}
                 </Badge>
               ))}
@@ -294,7 +247,7 @@ const ProjectDetailsDialog: React.FC<ProjectDetailsDialogProps> = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="aspect-video overflow-hidden rounded-lg bg-muted mb-6 cyberpunk-border">
+        <div className="aspect-video overflow-hidden rounded-lg bg-muted mb-6 border border-border">
           <img
             src={project.image}
             alt={project.title}
@@ -304,13 +257,13 @@ const ProjectDetailsDialog: React.FC<ProjectDetailsDialogProps> = ({
 
         <div className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold text-primary mb-3">Overview</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-3">Overview</h3>
             <p className="text-foreground/90 leading-relaxed">{project.description}</p>
           </div>
           
           {project.detailedDescription && (
             <div>
-              <h3 className="text-lg font-semibold text-primary mb-3">Technical Details</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Technical Details</h3>
               <div className="prose prose-sm max-w-none text-foreground/90">
                 <p className="leading-relaxed">{project.detailedDescription}</p>
               </div>
@@ -319,34 +272,34 @@ const ProjectDetailsDialog: React.FC<ProjectDetailsDialogProps> = ({
           
           {project.impact && (
             <div>
-              <h3 className="text-lg font-semibold text-primary mb-3">Impact & Results</h3>
-              <p className="text-accent font-medium">{project.impact}</p>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Impact & Results</h3>
+              <p className="text-primary font-medium">{project.impact}</p>
             </div>
           )}
         </div>
 
         <DialogFooter className="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-border/30">
           {project.liveUrl && (
-            <Button asChild className="cyberpunk-glow bg-primary hover:bg-primary/90">
+            <Button asChild className="bg-primary hover:bg-primary/90">
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <ExternalLink className="mr-2 h-4 w-4" /> 
-                Launch System
+                View Live
               </a>
             </Button>
           )}
           {project.repoUrl && (
-            <Button variant="outline" asChild className="cyberpunk-border">
+            <Button variant="outline" asChild>
               <a
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Github className="mr-2 h-4 w-4" /> 
-                Access Code
+                View Code
               </a>
             </Button>
           )}
@@ -356,115 +309,40 @@ const ProjectDetailsDialog: React.FC<ProjectDetailsDialogProps> = ({
   );
 };
 
-// Cyberpunk-themed projects data
+// Projects data
 const defaultProjects: Project[] = [
   {
     id: "1",
-    title: "QuantumShield Defense Matrix",
-    description: "AI-powered quantum-resistant encryption system that adapts to emerging threats in real-time.",
-    detailedDescription: "Revolutionary cybersecurity platform combining quantum cryptography with machine learning to create an adaptive defense matrix. The system uses neural networks to predict attack patterns and automatically generates quantum-resistant encryption keys. Features include real-time threat analysis, automated incident response, and zero-trust architecture implementation.",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80",
-    tags: ["Quantum Computing", "AI/ML", "Cryptography", "Python", "C++", "TensorFlow"],
+    title: "CheckInGo: A Progressive Web Application for Hotel Management System",
+    description: "A web and mobile-based system for hotel operations, featuring room management, billing, and service ordering. Guests receive unique QR codes to access their assigned rooms, while admins can manage bookings, users, and transactions in real time.",
+    detailedDescription: "A comprehensive hotel management system built as a Progressive Web Application (PWA) that streamlines hotel operations. The system enables guests to check in using QR codes, order services, and manage their stay through a mobile-friendly interface. Administrators have full control over room assignments, billing, user management, and real-time transaction monitoring.",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
+    tags: ["React", "PHP", "Laravel", "PWA", "QR Code", "Hotel Management"],
     year: 2024,
-    liveUrl: "https://quantumshield.demo",
-    repoUrl: "https://github.com/alexcipher/quantumshield",
-    category: "security",
-    status: "active",
-    impact: "Protected 50,000+ endpoints, reduced breach attempts by 95%"
+    category: "web",
+    status: "completed"
   },
   {
     id: "2",
-    title: "Neural Threat Hunter",
-    description: "Deep learning system that identifies zero-day exploits and advanced persistent threats before they strike.",
-    detailedDescription: "Advanced threat detection system using deep neural networks and behavioral analysis to identify previously unknown malware and attack vectors. The system analyzes network traffic, system calls, and user behavior patterns to detect anomalies that traditional signature-based systems miss. Includes automated threat intelligence gathering and response orchestration.",
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80",
-    tags: ["Deep Learning", "Threat Detection", "Python", "PyTorch", "Elasticsearch", "Kafka"],
-    year: 2023,
-    liveUrl: "https://neuralhunter.demo",
-    repoUrl: "https://github.com/alexcipher/neural-threat-hunter",
-    category: "ai",
-    status: "completed",
-    impact: "Detected 127 zero-day threats, 99.7% accuracy rate"
+    title: "Armory Inventory Management System",
+    description: "Developed during internship for the Philippine Air Force, this system manages weapon and equipment inventory for a single armory unit. Includes real-time inbound/outbound tracking powered by QR scanning to improve accuracy and accountability.",
+    detailedDescription: "An inventory management system developed for the Philippine Air Force during an internship program. The system tracks weapons and equipment for armory units using QR code scanning technology. Features include real-time tracking of inbound and outbound items, automated inventory updates, and comprehensive reporting to ensure accountability and accuracy in equipment management.",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+    tags: ["Python", "Django", "Django REST Framework", "PostgreSQL", "QR Code", "Inventory Management"],
+    year: 2025,
+    category: "web",
+    status: "completed"
   },
   {
     id: "3",
-    title: "CyberFortress IoT Security",
-    description: "Comprehensive security framework for IoT devices with hardware-level protection and mesh networking.",
-    detailedDescription: "End-to-end IoT security solution featuring custom hardware security modules, encrypted mesh networking, and centralized device management. The system provides secure boot, runtime attestation, and over-the-air updates for IoT devices. Includes a web-based dashboard for monitoring device health and security status across distributed networks.",
-    image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800&q=80",
-    tags: ["IoT Security", "Hardware", "Embedded C", "React", "Node.js", "LoRaWAN"],
-    year: 2023,
-    repoUrl: "https://github.com/alexcipher/cyberfortress-iot",
-    category: "hardware",
-    status: "active",
-    impact: "Secured 100,000+ IoT devices across 50 smart cities"
-  },
-  {
-    id: "4",
-    title: "BlockChain Forensics Suite",
-    description: "Advanced blockchain analysis platform for cryptocurrency investigations and compliance monitoring.",
-    detailedDescription: "Comprehensive blockchain forensics platform that traces cryptocurrency transactions, identifies suspicious patterns, and generates compliance reports. Features advanced graph analysis, machine learning-based clustering, and integration with major cryptocurrency exchanges. Supports Bitcoin, Ethereum, and 50+ other cryptocurrencies with real-time monitoring capabilities.",
-    image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=800&q=80",
-    tags: ["Blockchain", "Forensics", "Python", "Neo4j", "React", "GraphQL"],
-    year: 2022,
-    liveUrl: "https://blockforensics.demo",
-    repoUrl: "https://github.com/alexcipher/blockchain-forensics",
-    category: "blockchain",
-    status: "completed",
-    impact: "Assisted in $50M+ cryptocurrency recovery cases"
-  },
-  {
-    id: "5",
-    title: "Quantum Key Distribution Network",
-    description: "Experimental quantum communication network for ultra-secure data transmission between research facilities.",
-    detailedDescription: "Cutting-edge quantum key distribution system implementing BB84 protocol for unconditionally secure communication. The network spans multiple research facilities and provides quantum-secured channels for sensitive data transmission. Features real-time quantum state monitoring, error correction, and integration with classical networking infrastructure.",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80",
-    tags: ["Quantum Physics", "Cryptography", "C++", "Python", "Optics", "Research"],
+    title: "Multi-Tenant Logistics and Inventory Management System",
+    description: "A real-time inventory platform designed for multiple companies to track inbound and outbound goods efficiently. Integrated with QR code scanning for faster and more accurate transaction logging, featuring secure tenant data isolation and live updates.",
+    detailedDescription: "A comprehensive multi-tenant inventory management platform that allows multiple companies to manage their logistics and inventory operations independently. The system features secure data isolation between tenants, real-time updates, and QR code integration for efficient transaction logging. Designed to handle high-volume operations with accurate tracking of inbound and outbound goods.",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    tags: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Multi-Tenant", "QR Code", "Logistics"],
     year: 2024,
-    category: "research",
-    status: "research",
-    impact: "First practical QKD network spanning 100km+ distance"
-  },
-  {
-    id: "6",
-    title: "AI-Powered Penetration Testing",
-    description: "Autonomous penetration testing framework that uses reinforcement learning to discover vulnerabilities.",
-    detailedDescription: "Revolutionary automated penetration testing system that uses reinforcement learning to discover and exploit vulnerabilities without human intervention. The AI agent learns from each engagement, building a knowledge base of attack techniques and defensive countermeasures. Includes comprehensive reporting and remediation recommendations.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
-    tags: ["AI/ML", "Penetration Testing", "Python", "Reinforcement Learning", "Metasploit"],
-    year: 2023,
-    repoUrl: "https://github.com/alexcipher/ai-pentest",
-    category: "ai",
-    status: "active",
-    impact: "Automated testing for 1000+ applications, 40% faster than manual testing"
-  },
-  {
-    id: "7",
-    title: "Secure Multi-Party Computation Platform",
-    description: "Privacy-preserving computation platform enabling secure data analysis without revealing sensitive information.",
-    detailedDescription: "Advanced secure multi-party computation platform that allows multiple parties to jointly compute functions over their inputs while keeping those inputs private. Implements cutting-edge cryptographic protocols including garbled circuits and secret sharing. Features a user-friendly API and supports various data analysis tasks including machine learning on encrypted data.",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
-    tags: ["Cryptography", "Privacy", "Rust", "React", "WebAssembly", "MPC"],
-    year: 2024,
-    liveUrl: "https://securempc.demo",
-    repoUrl: "https://github.com/alexcipher/secure-mpc",
-    category: "cryptography",
-    status: "active",
-    impact: "Enabled privacy-preserving analysis for 10+ healthcare organizations"
-  },
-  {
-    id: "8",
-    title: "Cyber Range Training Platform",
-    description: "Immersive cybersecurity training environment with realistic attack scenarios and hands-on exercises.",
-    detailedDescription: "Comprehensive cybersecurity training platform featuring realistic network environments, attack scenarios, and hands-on exercises. The platform uses containerized environments to simulate real-world infrastructure and provides guided learning paths for different skill levels. Includes automated scoring, progress tracking, and team-based exercises for collaborative learning.",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
-    tags: ["Education", "Docker", "Kubernetes", "React", "Node.js", "Cybersecurity"],
-    year: 2022,
-    liveUrl: "https://cyberrange.demo",
-    repoUrl: "https://github.com/alexcipher/cyber-range",
-    category: "education",
-    status: "completed",
-    impact: "Trained 5000+ cybersecurity professionals across 20 countries"
+    category: "web",
+    status: "completed"
   }
 ];
 

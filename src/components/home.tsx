@@ -256,418 +256,236 @@ const Home = () => {
     }
   };
 
-  // Hero section with cyberpunk styling
-  const renderHeroSection = () => (
-    <div className="relative py-20 text-center overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-20"></div>
-      <div className="relative z-10">
-        <motion.div 
-          className="inline-block relative mb-8"
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, type: "spring" }}
-        >
-          <div className="w-40 h-40 rounded-full overflow-hidden cyberpunk-border cyberpunk-glow">
-            <img
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=cyberpunk-dev"
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
+  // Resume Header Section
+  const renderResumeHeader = () => (
+    <div className="border-b border-zinc-800 pb-4 sm:pb-5 mb-6 sm:mb-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-50 mb-1 sm:mb-2 leading-tight">
+            DYLAN THOMAS M. RAÑOLA
+          </h1>
+          <p className="text-sm sm:text-base text-zinc-400 font-normal">Computer Engineer</p>
+        </div>
+        <div className="flex flex-col gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
+          <div className="flex items-center gap-2">
+            <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-500 flex-shrink-0" />
+            <a href="mailto:dylanranola@gmail.com" className="hover:text-zinc-200 transition-colors break-all sm:break-normal">
+              dylanranola@gmail.com
+            </a>
           </div>
-          <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary rounded-full animate-pulse"></div>
-        </motion.div>
-        
-        <motion.h1 
-          className="text-5xl md:text-7xl font-bold mb-4 neon-text text-primary"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          DYLAN THOMAS M. RAÑOLA
-        </motion.h1>
-        
-        <motion.div
-          className="text-xl md:text-2xl text-secondary mb-6 font-mono"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          <span className="text-accent">&gt;</span> Computer Engineer
-          <span className="animate-pulse">_</span>
-        </motion.div>
-        
-        <motion.p 
-          className="max-w-2xl mx-auto text-lg text-muted-foreground mb-8 leading-relaxed"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-        >
-          A Computer Engineering student aspiring to become a cybersecurity specialist, passionate about securing networks, learning ethical hacking, and exploring AI-driven defenses for the future of digital security.
-        </motion.p>
-        
-        <motion.div 
-          className="flex justify-center gap-6 mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-        >
-          <a href="https://github.com/dae-jpeg" className="text-primary hover:text-secondary transition-colors cyberpunk-glow p-3 rounded-full">
-            <Github className="w-8 h-8" />
-          </a>
-          <a href="https://www.linkedin.com/in/dylanranola/" className="text-primary hover:text-secondary transition-colors cyberpunk-glow p-3 rounded-full">
-            <Linkedin className="w-8 h-8" />
-          </a>
-          <a href="mailto:dylanranola@gmail.com" className="text-primary hover:text-secondary transition-colors cyberpunk-glow p-3 rounded-full">
-            <Mail className="w-8 h-8" />
-          </a>
-        </motion.div>
-
-        <motion.div
-          className="flex flex-wrap justify-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-        >
-          {["Computer Engineering", "Networks", "Embedded Systems", "Cybersecurity"].map((tag) => (
-            <Badge key={tag} variant="outline" className="cyberpunk-border text-primary border-primary/50 hover:bg-primary/10">
-              {tag}
-            </Badge>
-          ))}
-        </motion.div>
+          <div className="flex items-center gap-2">
+            <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-500 flex-shrink-0" />
+            <a href="https://www.linkedin.com/in/dylanranola/" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-200 transition-colors break-all sm:break-normal">
+              linkedin.com/in/dylanranola
+            </a>
+          </div>
+          <div className="flex items-center gap-2">
+            <Github className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-500 flex-shrink-0" />
+            <a href="https://github.com/dae-jpeg" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-200 transition-colors break-all sm:break-normal">
+              github.com/dae-jpeg
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
 
-  // About section
-  const renderAboutSection = () => (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeInUp}
-      className="py-16"
-    >
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-center text-primary neon-text">
-          <Code className="inline-block mr-3" />
-          About Me
+  // Professional Summary Section
+  const renderSummarySection = () => (
+    <section className="mb-6 sm:mb-8">
+      <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+        Professional Summary
+      </h2>
+      <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+        Computer Engineering undergraduate specializing in network security, with a strong interest in building secure and reliable systems. 
+        Experienced in full-stack development using Django, PostgreSQL, React, and modern web technologies. 
+        Passionate about embedded systems, cybersecurity, and developing practical solutions for real-world problems.
+      </p>
+    </section>
+  );
+
+  // Skills section - Resume style with animations
+  const renderSkillsSection = () => {
+    const skillsData = {
+      "Tech Stack": [
+        { name: "Python", icon: "🐍" },
+        { name: "Django", icon: "🎯" },
+        { name: "React", icon: "⚛️" },
+        { name: "PostgreSQL", icon: "🐘" },
+        { name: "Laravel", icon: "🎯" }
+      ],
+      "Networking": [
+        { name: "IP Addressing", icon: "🌐" },
+        { name: "Subnetting", icon: "📡" },
+        { name: "MAC Addressing", icon: "🔌" },
+        { name: "DNS", icon: "🔍" },
+        { name: "DHCP", icon: "⚡" }
+      ],
+      "Tools": [
+        { name: "Git & GitHub", icon: "📝" },
+        { name: "VS Code", icon: "💻" },
+        { name: "Postman", icon: "📮" }
+      ],
+      "UI/UX Design": [
+        { name: "Figma", icon: "🎨" },
+        { name: "WordPress", icon: "📝" },
+        { name: "Wix", icon: "🌐" }
+      ],
+      "Microsoft Office": [
+        { name: "Word", icon: "📄" },
+        { name: "PowerPoint", icon: "📊" },
+        { name: "Excel", icon: "📈" }
+      ],
+      "Networking Tools": [
+        { name: "Packet Tracer", icon: "📡" },
+        { name: "Nmap", icon: "🔍" },
+        { name: "Wireshark", icon: "🦈" }
+      ]
+    };
+
+    return (
+      <section className="mb-8">
+        <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+          Skills & Competencies
         </h2>
-        <Card className="cyberpunk-border bg-card/50 backdrop-blur-sm">
-          <CardContent className="p-8">
-            <p className="text-lg leading-relaxed text-foreground/90 mb-6">
-            I’m a Computer Engineering undergraduate specializing in network security, with a strong interest in building secure and reliable systems. Beyond academics, I develop projects as a hobby, ranging from inventory management systems and embedded devices to multi-tenant applications. My work often involves full-stack development using tools like Django, PostgreSQL, and other modern technologies.
-            </p>
-            {/* <p className="text-lg leading-relaxed text-foreground/90 mb-6">
-              When I'm not hunting zero-days or architecting quantum-resistant protocols, you'll find me 
-              contributing to open-source security tools, mentoring the next generation of ethical hackers, 
-              or exploring the intersection of consciousness and artificial intelligence.
-            </p>
-            <p className="text-lg leading-relaxed text-foreground/90">
-              My mission: Make the digital world safer for everyone while pushing the boundaries of what's 
-              possible in cybersecurity and AI.
-            </p> */}
-          </CardContent>
-        </Card>
-      </div>
-    </motion.section>
-  );
+        <div className="space-y-4 sm:space-y-5">
+          {Object.entries(skillsData).map(([category, skillList], categoryIndex) => (
+            <div key={category} className="group">
+              <h3 className="text-xs sm:text-sm font-medium text-zinc-300 mb-2 sm:mb-3 group-hover:text-zinc-100 transition-colors duration-300">
+                {category}
+              </h3>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                {skillList.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (categoryIndex * 0.1) + (skillIndex * 0.05), duration: 0.3 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="w-full sm:w-auto"
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="skill-badge text-[10px] sm:text-xs bg-zinc-900/80 text-zinc-300 border-zinc-700/50 
+                        px-2 py-1 sm:px-3 sm:py-1.5 cursor-default w-full sm:w-auto justify-center sm:justify-start
+                        hover:border-blue-500/40 hover:text-zinc-100 hover:shadow-lg hover:shadow-blue-500/20
+                        transition-all duration-300 relative overflow-hidden group/badge backdrop-blur-sm"
+                    >
+                      <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
+                        <span className="text-xs sm:text-sm">{skill.icon}</span>
+                        <span className="truncate">{skill.name}</span>
+                      </span>
+                      <div className="absolute inset-0 skill-gradient opacity-0 group-hover/badge:opacity-100 transition-opacity duration-500"></div>
+                    </Badge>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  };
 
-  // Skills section with cyberpunk styling
-  const renderSkillsSection = () => (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={staggerContainer}
-      className="py-16"
-    >
-      <h2 className="text-3xl font-bold mb-12 text-center text-primary neon-text">
-        <Cpu className="inline-block mr-3" />
-        Tech Arsenal
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {Object.entries(skills).map(([category, skillList]) => (
-          <motion.div key={category} variants={fadeInUp}>
-            <Card className="cyberpunk-border bg-card/30 backdrop-blur-sm h-full">
-              <CardHeader>
-                <CardTitle className="text-secondary capitalize text-xl">
-                  {category}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {skillList.map((skill) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium flex items-center gap-2">
-                          <span>{skill.icon}</span>
-                          {skill.name}
-                        </span>
-                        <span className="text-xs text-muted-foreground">{skill.level}%</span>
-                      </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{ duration: 1, delay: 0.2 }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </motion.section>
-  );
-
-  // Achievements section
+  // Achievements section - Resume style
   const renderAchievementsSection = () => (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={staggerContainer}
-      className="py-16"
-    >
-      <h2 className="text-3xl font-bold mb-12 text-center text-primary neon-text">
-        <Award className="inline-block mr-3" />
-        Achievements
+    <section className="mb-6 sm:mb-8">
+      <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+        Achievements & Awards
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-3 sm:space-y-4">
         {achievements.map((achievement, index) => (
-          <motion.div key={index} variants={fadeInUp}>
-            <Card className="cyberpunk-border bg-card/30 backdrop-blur-sm hover:bg-card/50 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl">{achievement.icon}</div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg text-secondary mb-1">{achievement.title}</h3>
-                    <p className="text-primary text-sm mb-2">{achievement.organization} • {achievement.date}</p>
-                    <p className="text-muted-foreground">{achievement.description}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div key={index} className="border-l border-zinc-700 pl-3 sm:pl-4">
+            <h3 className="text-xs sm:text-sm font-medium text-zinc-200 break-words">{achievement.title}</h3>
+            <p className="text-[10px] sm:text-xs text-zinc-400 mt-1 sm:mt-1.5 break-words">{achievement.organization} • {achievement.date}</p>
+            <p className="text-[10px] sm:text-xs text-zinc-300 mt-1 break-words">{achievement.description}</p>
+          </div>
         ))}
       </div>
-    </motion.section>
+    </section>
   );
 
-  // Contact form
-  const renderContactForm = () => (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeInUp}
-      className="py-16"
-    >
-      <h2 className="text-3xl font-bold mb-12 text-center text-primary neon-text">
-        <Zap className="inline-block mr-3" />
-        Initiate Contact
-      </h2>
-      <Card className="max-w-2xl mx-auto cyberpunk-border bg-card/30 backdrop-blur-sm">
-        <CardContent className="p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Status Messages */}
-            {submitStatus === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center gap-2 text-green-400"
-              >
-                <CheckCircle className="h-5 w-5" />
-                <span>{submitMessage}</span>
-              </motion.div>
-            )}
-            
-            {submitStatus === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 text-red-400"
-              >
-                <AlertCircle className="h-5 w-5" />
-                <span>{submitMessage}</span>
-              </motion.div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-secondary mb-2">Name</label>
-                <Input 
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Your name" 
-                  className="cyberpunk-border bg-background/50" 
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-secondary mb-2">Email</label>
-                <Input 
-                  name="email"
-                  type="email" 
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="your@email.com" 
-                  className="cyberpunk-border bg-background/50" 
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-secondary mb-2">Subject</label>
-              <Input 
-                name="subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                placeholder="Project collaboration, security consultation, etc." 
-                className="cyberpunk-border bg-background/50" 
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-secondary mb-2">Message</label>
-              <Textarea 
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder="Tell me about your project or security challenge..." 
-                rows={5}
-                className="cyberpunk-border bg-background/50"
-                required
-              />
-            </div>
-            <Button 
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full cyberpunk-glow bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Mail className="mr-2 h-4 w-4" />
-                  Send Encrypted Message
-                </>
-              )}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </motion.section>
-  );
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        {/* Hero Section */}
-        {renderHeroSection()}
+    <div className="min-h-screen bg-zinc-950 text-foreground print:bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6 print:px-8 print:py-4">
+        {/* Resume Header */}
+        {renderResumeHeader()}
 
-        {/* About Section */}
-        {renderAboutSection()}
-
-        {/* Skills Section */}
-        {renderSkillsSection()}
-
-        {/* Projects Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="py-16"
-        >
-          <ProjectsSection />
-        </motion.section>
-
-        {/* Certifications Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="py-16"
-        >
-          <ContentSection
-            title="Certifications"
-            content={{
-              type: "certifications",
-              data: certifications,
-            }}
-          />
-        </motion.section>
+        {/* Professional Summary */}
+        {renderSummarySection()}
 
         {/* Experience Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="py-16"
-        >
+        <section className="mb-6 sm:mb-8">
+          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-4 sm:mb-5 border-b border-zinc-800 pb-2">
+            Professional Experience
+          </h2>
           <ContentSection
-            title="Professional Experience"
+            title=""
             content={{
               type: "experience",
               data: experiences,
             }}
           />
-        </motion.section>
+        </section>
 
         {/* Education Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="py-16"
-        >
+        <section className="mb-6 sm:mb-8">
+          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+            Education
+          </h2>
           <ContentSection
-            title="Education"
+            title=""
             content={{
               type: "education",
               data: education,
             }}
           />
-        </motion.section>
+        </section>
+
+        {/* Skills Section */}
+        {renderSkillsSection()}
+
+        {/* Projects Section */}
+        <section className="mb-6 sm:mb-8">
+          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+            Projects
+          </h2>
+          <ProjectsSection />
+        </section>
+
+        {/* Certifications Section */}
+        <section className="mb-6 sm:mb-8">
+          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+            Certifications
+          </h2>
+          <ContentSection
+            title=""
+            content={{
+              type: "certifications",
+              data: certifications,
+            }}
+          />
+        </section>
 
         {/* Achievements Section */}
         {renderAchievementsSection()}
 
-        {/* Contact Form */}
-        {renderContactForm()}
-
-        {/* Download CV Button */}
-        <motion.div 
-          className="text-center py-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <Button size="lg" className="cyberpunk-glow bg-secondary text-secondary-foreground hover:bg-secondary/90">
-            <Download className="mr-2 h-5 w-5" />
-            Download Quantum CV
+        {/* Download CV Button - Hidden in print */}
+        <div className="text-center py-4 sm:py-6 print:hidden">
+          <Button size="lg" className="bg-zinc-800 text-zinc-50 hover:bg-zinc-700 border border-zinc-700 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3">
+            <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Download PDF Resume</span>
+            <span className="sm:hidden">Download PDF</span>
           </Button>
-        </motion.div>
+        </div>
 
-        {/* Footer */}
-        <footer className="text-center py-8 border-t border-border/50">
-          <p className="text-muted-foreground font-mono">
-            <span className="text-primary">&gt;</span> Secured by quantum encryption • 
+        {/* Footer - Hidden in print */}
+        <footer className="text-center py-4 sm:py-6 border-t border-zinc-800 print:hidden">
+          <p className="text-zinc-500 text-[10px] sm:text-xs break-words px-2">
             Built with React & TypeScript • 
-            {new Date().getFullYear()} Alex Cipher
-            <span className="animate-pulse">_</span>
+            {new Date().getFullYear()} Dylan Thomas M. Rañola
           </p>
         </footer>
       </div>
