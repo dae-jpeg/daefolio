@@ -65,11 +65,61 @@
   }
   
   .grid-bg {
-    background-image: none;
+    background-image:
+      linear-gradient(rgba(39, 39, 42, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(39, 39, 42, 0.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .portfolio-ambient {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(34, 211, 238, 0.18), transparent 50%),
+      radial-gradient(ellipse 60% 40% at 90% 20%, rgba(168, 85, 247, 0.12), transparent 45%),
+      radial-gradient(ellipse 50% 35% at 10% 80%, rgba(52, 211, 153, 0.08), transparent 40%);
+    animation: ambient-drift 18s ease-in-out infinite;
+  }
+
+  .section-heading-energy {
+    position: relative;
+    border-bottom: 1px solid rgba(63, 63, 70, 0.85);
+  }
+
+  .section-heading-energy::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 4rem;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgb(34, 211, 238), rgb(168, 85, 247), rgb(52, 211, 153));
+    background-size: 200% 100%;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  .portfolio-shimmer {
+    background-size: 200% auto;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  .portfolio-cta:hover {
+    transform: translateY(-1px);
   }
 }
 
 @layer utilities {
+  @keyframes ambient-drift {
+    0%,
+    100% {
+      filter: hue-rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      filter: hue-rotate(12deg);
+      opacity: 0.92;
+    }
+  }
+
   @keyframes gradient-shift {
     0% {
       background-position: 0% 50%;

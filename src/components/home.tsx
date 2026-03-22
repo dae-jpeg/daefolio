@@ -105,46 +105,6 @@ const Home = () => {
     ],
   };
 
-  // Sample data for certifications section
-  const certifications = [
-    {
-      title: "AWS Certified Solutions Architect Professional",
-      organization: "Amazon Web Services",
-      date: "December 2023",
-      credentialId: "AWS-SAP-2023-001",
-      verifyUrl: "https://aws.amazon.com/verification",
-      badgeUrl: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=100&q=80",
-      level: "Professional"
-    },
-    {
-      title: "Certified Kubernetes Administrator (CKA)",
-      organization: "Cloud Native Computing Foundation",
-      date: "October 2023",
-      credentialId: "CKA-2023-789",
-      verifyUrl: "https://www.cncf.io/certification/verify",
-      badgeUrl: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=100&q=80",
-      level: "Professional"
-    },
-    {
-      title: "TensorFlow Developer Certificate",
-      organization: "Google",
-      date: "August 2023",
-      credentialId: "TF-DEV-456",
-      verifyUrl: "https://www.tensorflow.org/certificate",
-      badgeUrl: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=100&q=80",
-      level: "Intermediate"
-    },
-    {
-      title: "Certified Ethical Hacker (CEH)",
-      organization: "EC-Council",
-      date: "June 2023",
-      credentialId: "CEH-2023-123",
-      verifyUrl: "https://www.eccouncil.org/verify",
-      badgeUrl: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=100&q=80",
-      level: "Professional"
-    },
-  ];
-
   // Sample data for experience section
   const experiences = [
     {
@@ -243,7 +203,7 @@ const Home = () => {
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
   };
 
   const staggerContainer = {
@@ -251,22 +211,31 @@ const Home = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.08,
+        delayChildren: 0.05,
+      },
+    },
   };
 
   // Resume Header Section
   const renderResumeHeader = () => (
-    <div className="border-b border-zinc-800 pb-4 sm:pb-5 mb-6 sm:mb-8">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainer}
+      className="border-b border-zinc-800/80 pb-4 sm:pb-5 mb-6 sm:mb-8"
+    >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-50 mb-1 sm:mb-2 leading-tight">
+        <motion.div variants={fadeInUp}>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2 leading-tight bg-gradient-to-br from-zinc-50 via-zinc-200 to-cyan-400/70 bg-clip-text text-transparent portfolio-shimmer">
             DYLAN THOMAS M. RAÑOLA
           </h1>
-          <p className="text-sm sm:text-base text-zinc-400 font-normal">Computer Engineer</p>
-        </div>
-        <div className="flex flex-col gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
+          <p className="text-sm sm:text-base text-zinc-400 font-normal flex items-center gap-2">
+            <Zap className="w-4 h-4 text-cyan-400/90 shrink-0" aria-hidden />
+            <span>Computer Engineer</span>
+          </p>
+        </motion.div>
+        <motion.div variants={fadeInUp} className="flex flex-col gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
           <div className="flex items-center gap-2">
             <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-500 flex-shrink-0" />
             <a href="mailto:dylanranola@gmail.com" className="hover:text-zinc-200 transition-colors break-all sm:break-normal">
@@ -285,15 +254,21 @@ const Home = () => {
               github.com/dae-jpeg
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 
   // Professional Summary Section
   const renderSummarySection = () => (
-    <section className="mb-6 sm:mb-8">
-      <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+    <motion.section
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="mb-6 sm:mb-8"
+    >
+      <h2 className="section-heading-energy text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 pb-2">
         Professional Summary
       </h2>
       <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
@@ -301,7 +276,7 @@ const Home = () => {
         Experienced in full-stack development using Django, PostgreSQL, React, and modern web technologies. 
         Passionate about embedded systems, cybersecurity, and developing practical solutions for real-world problems.
       </p>
-    </section>
+    </motion.section>
   );
 
   // Skills section - Resume style with animations
@@ -345,7 +320,7 @@ const Home = () => {
 
     return (
       <section className="mb-8">
-        <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+        <h2 className="section-heading-energy text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 pb-2">
           Skills & Competencies
         </h2>
         <div className="space-y-4 sm:space-y-5">
@@ -391,16 +366,23 @@ const Home = () => {
   // Achievements section - Resume style
   const renderAchievementsSection = () => (
     <section className="mb-6 sm:mb-8">
-      <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+      <h2 className="section-heading-energy text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 pb-2">
         Achievements & Awards
       </h2>
       <div className="space-y-3 sm:space-y-4">
         {achievements.map((achievement, index) => (
-          <div key={index} className="border-l border-zinc-700 pl-3 sm:pl-4">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.06, duration: 0.4 }}
+            className="border-l-2 border-l-cyan-500/40 border-zinc-800 pl-3 sm:pl-4 rounded-r-md bg-zinc-900/20 py-1"
+          >
             <h3 className="text-xs sm:text-sm font-medium text-zinc-200 break-words">{achievement.title}</h3>
             <p className="text-[10px] sm:text-xs text-zinc-400 mt-1 sm:mt-1.5 break-words">{achievement.organization} • {achievement.date}</p>
             <p className="text-[10px] sm:text-xs text-zinc-300 mt-1 break-words">{achievement.description}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
@@ -408,8 +390,10 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-foreground print:bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6 print:px-8 print:py-4">
+    <div className="min-h-screen bg-zinc-950 text-foreground print:bg-white relative overflow-x-hidden">
+      <div className="pointer-events-none fixed inset-0 grid-bg opacity-[0.11] print:hidden" aria-hidden />
+      <div className="portfolio-ambient pointer-events-none fixed inset-0 print:hidden" aria-hidden />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6 print:px-8 print:py-4 relative z-10">
         {/* Resume Header */}
         {renderResumeHeader()}
 
@@ -418,7 +402,7 @@ const Home = () => {
 
         {/* Experience Section */}
         <section className="mb-6 sm:mb-8">
-          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-4 sm:mb-5 border-b border-zinc-800 pb-2">
+          <h2 className="section-heading-energy text-base sm:text-lg font-semibold text-zinc-50 mb-4 sm:mb-5 pb-2">
             Professional Experience
           </h2>
           <ContentSection
@@ -432,7 +416,7 @@ const Home = () => {
 
         {/* Education Section */}
         <section className="mb-6 sm:mb-8">
-          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+          <h2 className="section-heading-energy text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 pb-2">
             Education
           </h2>
           <ContentSection
@@ -449,24 +433,10 @@ const Home = () => {
 
         {/* Projects Section */}
         <section className="mb-6 sm:mb-8">
-          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
+          <h2 className="section-heading-energy text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 pb-2">
             Projects
           </h2>
           <ProjectsSection />
-        </section>
-
-        {/* Certifications Section */}
-        <section className="mb-6 sm:mb-8">
-          <h2 className="text-base sm:text-lg font-semibold text-zinc-50 mb-3 sm:mb-4 border-b border-zinc-800 pb-2">
-            Certifications
-          </h2>
-          <ContentSection
-            title=""
-            content={{
-              type: "certifications",
-              data: certifications,
-            }}
-          />
         </section>
 
         {/* Achievements Section */}
@@ -474,7 +444,7 @@ const Home = () => {
 
         {/* Download CV Button - Hidden in print */}
         <div className="text-center py-4 sm:py-6 print:hidden">
-          <Button size="lg" className="bg-zinc-800 text-zinc-50 hover:bg-zinc-700 border border-zinc-700 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3">
+          <Button size="lg" className="portfolio-cta bg-zinc-900/90 text-zinc-50 border border-cyan-500/30 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 shadow-lg shadow-cyan-500/10 hover:bg-zinc-800/95 hover:shadow-cyan-500/25 hover:border-cyan-400/50 transition-all duration-300">
             <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
             <span className="hidden sm:inline">Download PDF Resume</span>
             <span className="sm:hidden">Download PDF</span>
