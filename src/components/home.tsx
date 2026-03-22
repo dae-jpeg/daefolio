@@ -443,13 +443,13 @@ const Home = () => {
         {renderAchievementsSection()}
 
         {/* Download CV Button - Hidden in print */}
-        <div className="text-center py-4 sm:py-6 print:hidden">
+        {/* <div className="text-center py-4 sm:py-6 print:hidden">
           <Button size="lg" className="portfolio-cta bg-zinc-900/90 text-zinc-50 border border-cyan-500/30 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 shadow-lg shadow-cyan-500/10 hover:bg-zinc-800/95 hover:shadow-cyan-500/25 hover:border-cyan-400/50 transition-all duration-300">
             <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
             <span className="hidden sm:inline">Download PDF Resume</span>
             <span className="sm:hidden">Download PDF</span>
           </Button>
-        </div>
+        </div> */}
 
         {/* Footer - Hidden in print */}
         <footer className="text-center py-4 sm:py-6 border-t border-zinc-800 print:hidden">
