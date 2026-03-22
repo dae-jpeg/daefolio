@@ -272,7 +272,7 @@ const Home = () => {
         Professional Summary
       </h2>
       <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-        Computer Engineering undergraduate specializing in network security, with a strong interest in building secure and reliable systems. 
+        Computer Engineering graduate specializing in network security, with a strong interest in building secure, reliable systems and design. 
         Experienced in full-stack development using Django, PostgreSQL, React, and modern web technologies. 
         Passionate about embedded systems, cybersecurity, and developing practical solutions for real-world problems.
       </p>
