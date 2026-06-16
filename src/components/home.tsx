@@ -108,6 +108,24 @@ const Home = () => {
   // Sample data for experience section
   const experiences = [
     {
+      title: "Customer Service Representative – Telecommunications Account",
+      company: "iQor Philippines",
+      location: "Philippines",
+      period: "February 2026 - Present",
+      description: "",
+      technologies: ["CRM", "Ticketing Systems", "Technical Troubleshooting", "Telecommunications"],
+      achievements: [
+        "Performed technical troubleshooting for mobile devices, SIM cards, network connectivity, and telecommunications services.",
+        "Diagnosed and resolved service-related issues by analyzing customer accounts, system data, and network information.",
+        "Utilized CRM, ticketing, and support systems to manage incidents, document resolutions, and track customer cases.",
+        "Assisted customers with device activation, configuration, and service restoration procedures.",
+        "Applied logical problem-solving and root cause analysis to identify and resolve technical concerns efficiently.",
+        "Worked with multiple software platforms and databases to retrieve, verify, and update customer and service information.",
+        "Collaborated with technical and operational teams to resolve escalated issues and improve service delivery.",
+        "Maintained compliance with data privacy, security, and operational standards."
+      ]
+    },
+    {
       title: "Programming Intern",
       company: "Philippine Air Force",
       location: "Colonel Jesus Villamor Air Base, Pasay City",
